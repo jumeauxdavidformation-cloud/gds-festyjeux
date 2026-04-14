@@ -381,10 +381,11 @@ res.status(500).json(err);
 }
 
 });
+
 const PORT = process.env.PORT || 3001;
 
-app.listen(3001, ()=>{
+app.listen(PORT, ()=>{
 
-console.log("serveur lancé port 3001");
+console.log("serveur lancé sur port " + PORT);
 
 });
