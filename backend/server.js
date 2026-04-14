@@ -312,13 +312,22 @@ res.end();
 
 });
 
-/* import excel jeux */
 
 /* import excel jeux */
 
 app.post("/api/import", upload.single("file"), async (req,res)=>{
 
 try{
+
+if(!req.file){
+
+return res.status(400).json({
+
+message:"aucun fichier reçu"
+
+});
+
+}
 
 const workbook = new ExcelJS.Workbook();
 
@@ -330,7 +339,7 @@ if(!sheet){
 
 return res.status(400).json({
 
-message:"fichier excel invalide"
+message:"excel invalide"
 
 });
 
@@ -338,7 +347,15 @@ message:"fichier excel invalide"
 
 for(let i=2;i<=sheet.rowCount;i++){
 
-const nom = sheet.getRow(i).getCell(1).value;
+let nom = sheet.getRow(i).getCell(1).value;
+
+if(typeof nom === "object" && nom?.richText){
+
+nom = nom.richText.map(t=>t.text).join("");
+
+}
+
+nom = String(nom || "").trim();
 
 let ean = sheet.getRow(i).getCell(2).value;
 
