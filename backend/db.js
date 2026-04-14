@@ -2,10 +2,11 @@ const mysql = require("mysql2");
 
 const db = mysql.createConnection({
 
-host:"localhost",
+host:"crossover.proxy.rlwy.net",
 user:"root",
-password:"",
-database:"gds_festyjeux"
+password:"ECLZQkvJzdCGwmPOkWTJoaVGBXvzGdTc",
+database:"railway",
+port: 16262
 
 });
 
