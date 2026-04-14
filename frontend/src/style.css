@@ -1,0 +1,231 @@
+body{
+
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+
+/* image très atténuée */
+
+background:
+linear-gradient(
+rgba(255,255,255,0.88),
+rgba(255,255,255,0.88)
+),
+url("/src/assets/Page de fond.png");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+
+}
+
+
+/* top bar */
+
+.topbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:15px 30px;
+
+background: rgba(15,23,42,0.85);
+
+color:white;
+
+backdrop-filter: blur(6px);
+
+position:sticky;
+top:0;
+
+}
+
+
+.logo{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+font-weight:bold;
+font-size:18px;
+
+}
+
+.logo img{
+
+height:40px;
+
+}
+
+.menu{
+
+display:flex;
+gap:20px;
+
+}
+
+.menu a{
+
+color:white;
+text-decoration:none;
+font-weight:500;
+
+}
+
+.menu a:hover{
+
+text-decoration:underline;
+
+}
+
+/* page */
+
+.page{
+
+padding:35px;
+max-width:950px;
+margin:auto;
+
+background:white;
+
+border-radius:14px;
+
+margin-top:40px;
+
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+
+}
+
+.section{
+
+border:1px solid #d1d5db;
+
+border-radius:10px;
+
+padding:20px;
+
+margin-bottom:25px;
+
+background:#fafafa;
+
+}
+
+.section h3{
+
+margin-top:0;
+
+padding-bottom:8px;
+
+border-bottom:1px solid #e5e7eb;
+
+}
+
+/* cards */
+
+.card{
+
+background:white;
+
+padding:15px;
+
+margin-bottom:12px;
+
+border-radius:8px;
+
+border:1.5px solid #000;
+
+box-shadow:0 2px 6px rgba(0,0,0,0.08);
+
+transition:0.2s;
+
+}
+
+.card:hover{
+
+box-shadow:0 6px 15px rgba(0,0,0,0.15);
+
+}
+
+
+/* form */
+
+.form{
+
+display:flex;
+gap:10px;
+margin-bottom:20px;
+
+}
+
+input{
+
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+
+}
+
+button{
+
+padding:10px 15px;
+
+border:none;
+border-radius:6px;
+
+background:#2563eb;
+color:white;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#1e40af;
+
+}
+
+/* scan */
+
+.scanInput{
+
+font-size:20px;
+padding:15px;
+width:300px;
+
+border-radius:8px;
+border:2px solid #2563eb;
+
+}
+
+/* table */
+
+table{
+
+border-collapse:collapse;
+width:100%;
+
+background:white;
+
+border-radius:8px;
+
+overflow:hidden;
+
+}
+
+th{
+
+background:#1f2937;
+color:white;
+
+padding:10px;
+
+}
+
+td{
+
+padding:10px;
+border-bottom:1px solid #eee;
+
+}
