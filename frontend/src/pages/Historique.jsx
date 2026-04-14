@@ -6,7 +6,7 @@ const [data,setData] = useState([]);
 
 const chargerHistorique = async ()=>{
 
-const res = await fetch("http://localhost:3001/api/historique");
+const res = await fetch("https://gds-festyjeux-production.up.railway.app/api/historique");
 
 const json = await res.json();
 

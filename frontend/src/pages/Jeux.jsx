@@ -9,8 +9,7 @@ const [jeux,setJeux] = useState([]);
 
 const chargerJeux = async ()=>{
 
-const res = await fetch("http://localhost:3001/api/jeux");
-
+const res = await fetch("https://gds-festyjeux-production.up.railway.app/api/jeux");
 const data = await res.json();
 
 setJeux(data);
@@ -30,8 +29,7 @@ const ajouterJeu = async ()=>{
 
 if(!nom || !ean) return;
 
-await fetch("http://localhost:3001/api/jeux",{
-
+await fetch("https://gds-festyjeux-production.up.railway.app/api/jeux",{
 method:"POST",
 
 headers:{
