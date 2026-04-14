@@ -80,7 +80,7 @@ const formData = new FormData();
 
 formData.append("file",file);
 
-await fetch("http://localhost:3001/api/import",{
+await fetch("https://gds-festyjeux-production.up.railway.app/api/import",{
 
 method:"POST",
 

@@ -23,7 +23,7 @@ chargerHistorique();
 
 const exporterExcel = ()=>{
 
-window.open("http://localhost:3001/api/export");
+window.open("https://gds-festyjeux-production.up.railway.app/api/export");
 
 };
 

@@ -11,7 +11,7 @@ const envoyerScan = async (ean)=>{
 
 if(!ean) return;
 
-const res = await fetch("http://localhost:3001/api/scan",{
+const res = await fetch("https://gds-festyjeux-production.up.railway.app/api/scan",{
 
 method:"POST",
 
