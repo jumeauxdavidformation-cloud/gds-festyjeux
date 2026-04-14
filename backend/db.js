@@ -1,6 +1,6 @@
 const mysql = require("mysql2");
 
-const isRailway = process.env.MYSQLHOST;
+const isRailway = !!process.env.MYSQLHOST;
 
 const db = mysql.createPool(
 
@@ -13,7 +13,11 @@ host: process.env.MYSQLHOST,
 user: process.env.MYSQLUSER,
 password: process.env.MYSQLPASSWORD,
 database: process.env.MYSQLDATABASE,
-port: process.env.MYSQLPORT
+port: process.env.MYSQLPORT,
+
+ssl: {
+rejectUnauthorized: false
+}
 
 }
 
@@ -30,7 +34,10 @@ database:"gds_festyjeux"
 
 );
 
-db.getConnection((err)=>{
+
+/* test connexion */
+
+db.getConnection((err,conn)=>{
 
 if(err){
 
@@ -40,6 +47,8 @@ console.log(err);
 }else{
 
 console.log("MYSQL CONNECTE");
+
+conn.release();
 
 }
 
