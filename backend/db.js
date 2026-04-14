@@ -2,11 +2,11 @@ const mysql = require("mysql2");
 
 const db = mysql.createConnection({
 
-host:"crossover.proxy.rlwy.net",
-user:"root",
-password:"ECLZQkvJzdCGwmPOkWTJoaVGBXvzGdTc",
-database:"railway",
-port: 16262
+host: process.env.MYSQLHOST,
+user: process.env.MYSQLUSER,
+password: process.env.MYSQLPASSWORD,
+database: process.env.MYSQLDATABASE,
+port: process.env.MYSQLPORT
 
 });
 
@@ -14,11 +14,12 @@ db.connect((err)=>{
 
 if(err){
 
+console.log("erreur connexion mysql");
 console.log(err);
 
 }else{
 
-console.log("connecté à gds_festyjeux");
+console.log("connecté à mysql railway");
 
 }
 
