@@ -12,7 +12,7 @@ const chargerJeux = async ()=>{
 const res = await fetch("https://gds-festyjeux-production.up.railway.app/api/jeux");
 const data = await res.json();
 
-setJeux(data);
+setJeux(Array.isArray(data) ? data : []);
 
 };
 

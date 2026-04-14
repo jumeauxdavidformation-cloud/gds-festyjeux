@@ -101,31 +101,35 @@ message:"jeu ajouté"
 app.get("/api/jeux",(req,res)=>{
 
 const sql = `
-
 SELECT 
-
 jeux.id,
 jeux.nom,
 codes_barres.ean13
-
 FROM jeux
-
 LEFT JOIN codes_barres
 ON jeux.id = codes_barres.jeu_id
-
 ORDER BY jeux.nom
-
 `;
 
 db.query(sql,(err,result)=>{
 
-if(err) return res.status(500).json(err);
+if(err){
 
-res.json(result);
+console.log("ERREUR SQL /api/jeux");
+console.log(err);
+
+/* on renvoie tableau vide pour éviter crash React */
+return res.json([]);
+
+}
+
+res.json(result || []);
 
 });
 
 });
+
+
 /* scan retour jeu */
 
 app.post("/api/scan",(req,res)=>{
