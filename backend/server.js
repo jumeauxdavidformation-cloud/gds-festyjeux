@@ -3,7 +3,25 @@ const cors = require("cors");
 const db = require("./db");
 const ExcelJS = require("exceljs");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({
+
+storage: multer.diskStorage({
+
+destination: function (req, file, cb) {
+
+cb(null, "/tmp"); // dossier toujours autorisé sur Railway
+
+},
+
+filename: function (req, file, cb) {
+
+cb(null, Date.now() + "-" + file.originalname);
+
+}
+
+})
+
+});
 
 require("./db");
 
@@ -307,6 +325,16 @@ const workbook = new ExcelJS.Workbook();
 await workbook.xlsx.readFile(req.file.path);
 
 const sheet = workbook.worksheets[0];
+
+if(!sheet){
+
+return res.status(400).json({
+
+message:"fichier excel invalide"
+
+});
+
+}
 
 for(let i=2;i<=sheet.rowCount;i++){
 
