@@ -343,8 +343,23 @@ message:"excel vide"
 
 for(let i=2;i<=sheet.rowCount;i++){
 
-let nom = sheet.getRow(i).getCell(1).text;
-let ean = sheet.getRow(i).getCell(2).text;
+const row = sheet.getRow(i);
+
+let nom = row.getCell(1).text;
+let ean = row.getCell(2).text;
+
+/* nettoyage */
+
+nom = String(nom).trim();
+
+ean = String(ean)
+.replace(/\s/g,"")
+.replace(/[^0-9]/g,"")
+.padStart(13,"0");
+
+if(!nom || ean.length !== 13) continue;
+
+console.log("IMPORT OK :", nom, ean);
 
 /* nettoyage */
 
@@ -354,7 +369,6 @@ ean = String(ean || "")
 .replace(/\s/g,"")
 .replace(/\D/g,"")
 .padStart(13,"0");
-
 
 /* sécurise valeurs excel */
 
