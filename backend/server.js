@@ -307,7 +307,13 @@ const sheet = workbook.worksheets[0];
 for(let i=2;i<=sheet.rowCount;i++){
 
 const nom = sheet.getRow(i).getCell(1).value;
-const ean = sheet.getRow(i).getCell(2).value;
+
+let ean = sheet.getRow(i).getCell(2).value;
+
+ean = String(ean)
+.trim()
+.replace(/\D/g,"")
+.padStart(13,"0");
 
 if(!nom || !ean) continue;
 
