@@ -322,9 +322,7 @@ try{
 if(!req.file){
 
 return res.status(400).json({
-
 message:"aucun fichier reçu"
-
 });
 
 }
@@ -338,9 +336,7 @@ const sheet = workbook.worksheets[0];
 if(!sheet){
 
 return res.status(400).json({
-
-message:"excel invalide"
-
+message:"excel vide"
 });
 
 }
@@ -348,16 +344,17 @@ message:"excel invalide"
 for(let i=2;i<=sheet.rowCount;i++){
 
 let nom = sheet.getRow(i).getCell(1).value;
+let ean = sheet.getRow(i).getCell(2).value;
+
+/* sécurise valeurs excel */
 
 if(typeof nom === "object" && nom?.richText){
-
 nom = nom.richText.map(t=>t.text).join("");
-
 }
 
-nom = String(nom || "").trim();
-
-let ean = sheet.getRow(i).getCell(2).value;
+if(typeof ean === "object" && ean?.richText){
+ean = ean.richText.map(t=>t.text).join("");
+}
 
 ean = String(ean)
 .trim()
@@ -367,69 +364,69 @@ ean = String(ean)
 if(!nom || !ean) continue;
 
 
-/* vérifier si jeu existe */
+/* trouver ou créer jeu */
 
 const jeu_id = await new Promise((resolve,reject)=>{
 
-const sqlJeu = "SELECT id FROM jeux WHERE nom = ?";
+db.query(
+"SELECT id FROM jeux WHERE nom=?",
+[nom],
+(err,result)=>{
 
-db.query(sqlJeu,[nom],(err,result)=>{
+if(err) return reject(err);
 
-if(err) reject(err);
-
-if(result.length > 0){
+if(result.length){
 
 resolve(result[0].id);
 
 }else{
 
-const sqlInsert = "INSERT INTO jeux (nom) VALUES (?)";
+db.query(
+"INSERT INTO jeux(nom) VALUES(?)",
+[nom],
+(err,result2)=>{
 
-db.query(sqlInsert,[nom],(err,result2)=>{
-
-if(err) reject(err);
+if(err) return reject(err);
 
 resolve(result2.insertId);
 
-});
+}
+);
 
 }
 
-});
+}
+);
 
 });
 
 
-/* ajouter code barre */
+/* ajouter ean */
 
-await new Promise((resolve)=>{
+await new Promise(resolve=>{
 
-const sqlEAN = `
-INSERT IGNORE INTO codes_barres (jeu_id,ean13)
-VALUES (?,?)
-`;
-
-db.query(sqlEAN,[jeu_id,ean],()=>{
-
-resolve();
-
-});
+db.query(
+"INSERT IGNORE INTO codes_barres(jeu_id,ean13) VALUES(?,?)",
+[jeu_id,ean],
+()=>resolve()
+);
 
 });
 
 }
 
 res.json({
-
 message:"import ok"
-
 });
 
 }catch(err){
 
+console.log("ERREUR IMPORT");
 console.log(err);
 
-res.status(500).json(err);
+res.status(500).json({
+message:"erreur import"
+});
 
 }
 
