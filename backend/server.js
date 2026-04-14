@@ -343,8 +343,18 @@ message:"excel vide"
 
 for(let i=2;i<=sheet.rowCount;i++){
 
-let nom = sheet.getRow(i).getCell(1).value;
-let ean = sheet.getRow(i).getCell(2).value;
+let nom = sheet.getRow(i).getCell(1).text;
+let ean = sheet.getRow(i).getCell(2).text;
+
+/* nettoyage */
+
+nom = String(nom || "").trim();
+
+ean = String(ean || "")
+.replace(/\s/g,"")
+.replace(/\D/g,"")
+.padStart(13,"0");
+
 
 /* sécurise valeurs excel */
 
